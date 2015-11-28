@@ -7,10 +7,10 @@
 #define _baudrate 115200
 
 //*-- IoT Information
-//#define SSID "ONO8A95"
-//#define PASS "pauladelavega5"
-#define SSID "WLAN_AA2C"
-#define PASS "Calabasa11"
+#define SSID "ONO8A95"
+#define PASS "pauladelavega5"
+//#define SSID "WLAN_AA2C"
+//#define PASS "Calabasa11"
 #define IP "184.106.153.149" // ThingSpeak IP Address: 184.106.153.149
 #define WIFI_OK 13
 // GET /update?key=[THINGSPEAK_KEY]&field1=[data 1]&field2=[data 2]...;
@@ -26,7 +26,7 @@ void setup() {
   {
     connectWiFi();
   }
-  emon1.current(1, 19.00);// Current: input pin, calibration.
+  emon1.current(1, 19.5);// Current: input pin, calibration.
   /*El coeficiente de calibracion es el factor por el que hay que 
 multiplicar la lectura en el sensor para obtener 1 V en el secundario
 cuando tengamos 1A en el primario. En el caso del SCT013 cuando tenemos 100A
@@ -36,7 +36,7 @@ Si ponemos una resistencia de carga de 100Ohm entonces el coeficiente
 sería INV(0.50mA*100)=20 . Lo hemos ajustado a mano comprobando la lectura
 teorica con la de una pinza amperimetrica y nos da 19.12 en lugar de 20
 */
- emon1.voltage(2,216,2);
+ emon1.voltage(2,209,1.7);
 }
 
 void loop() {
@@ -104,5 +104,3 @@ boolean connectWiFi()
     return false;
   }
 }
-
-
