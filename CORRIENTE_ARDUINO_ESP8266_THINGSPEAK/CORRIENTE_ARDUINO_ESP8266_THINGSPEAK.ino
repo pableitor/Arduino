@@ -44,11 +44,14 @@ void loop() {
   String Vrms =String(emon1.Vrms);// turn integer to string
   String Irms =String(emon1.Irms);// turn integer to string
   String Wrms= String(emon1.realPower);// turn integer to string
-  updateTS(Irms,Vrms,Wrms);
+  String Srms= String(emon1.apparentPower);    //extract Apparent Power into variable
+  String pf= String(emon1.powerFactor);    //extract Apparent Power into variable
+  
+  updateTS(Irms,Vrms,Wrms,Srms,pf);
   delay(3000);
 }
 //----- update the  Thingspeak string
-void updateTS( String I, String V, String W)
+void updateTS( String I, String V, String W, String S, String p)
 {
   // ESP8266 Client
   String cmd = "AT+CIPSTART=\"TCP\",\"";// Setup TCP connection
@@ -61,7 +64,7 @@ void updateTS( String I, String V, String W)
     return;
   }
 
-  cmd = GET + "&field1=" + I +"&field2="+ V +"&field3="+ W +"\r\n";
+  cmd = GET + "&field1=" + I +"&field2="+ V +"&field3="+ W +"&field4="+ S +"&field5="+ p +"\r\n";
   Serial.print( "AT+CIPSEND=" );
   Serial.println( cmd.length() );
   if(Serial.find( ">" ) )
